@@ -1,4 +1,3 @@
-
 # LLMPatronous 🧙🛡️
 
 **Your AI-Powered Security Guardian for Android Applications**

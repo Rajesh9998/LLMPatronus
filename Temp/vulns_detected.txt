@@ -1,0 +1,225 @@
+### Vulnerability Scan Result for Future 2:
+## Vulnerabilities Identified in Vuldroid Application Code:
+
+**1. Reading User Email via Broadcasts:**
+
+* **Vulnerability:** The application broadcasts the user's email address using an implicit intent, making it accessible to any other application listening for that specific broadcast action.
+* **Location:**
+    * `EmailViewer.java`: Line 20-25
+    * `MyReceiver.java`: Line 16-22
+* **Explanation:** `EmailViewer` activity sends a broadcast with the action "com.example.Broadcast". `MyReceiver` is registered to receive this broadcast and extracts the user's email from the `FirebaseAuth` instance, then displays it in a toast message. Any malicious app can register a receiver for the same action and steal the email address.
+
+
+**2. Webview XSS via Exported Activity:**
+
+* **Vulnerability:** The `BlogsViewer` activity is exported and uses a WebView to load URLs, including those from external sources. If the URL loaded contains malicious JavaScript code, it can be executed within the context of the app, potentially leading to Cross-Site Scripting (XSS) attacks.
+* **Location:**
+    * `AndroidManifest.xml`: Line 54 (BlogsViewer activity is exported)
+    * `BlogsViewer.java`: Line 22-39
+* **Explanation:** The `BlogsViewer` activity can be launched by other applications because it's exported. If a malicious app launches it with a specially crafted URL containing JavaScript code, that code will be executed in the WebView. This could allow the attacker to steal user data or perform other malicious actions.
+
+
+**3. Webview XSS via DeepLink:**
+
+* **Vulnerability:** The `BlogsViewer` activity can be launched via deep links with a "url" parameter. If this parameter contains malicious JavaScript code, it can be loaded and executed by the WebView, leading to XSS attacks.
+* **Location:**
+    * `AndroidManifest.xml`: Line 54-65 (BlogsViewer intent filter with data scheme and host)
+    * `BlogsViewer.java`: Line 22-39
+* **Explanation:** The intent filter for `BlogsViewer` allows it to be launched with URLs matching the "http" or "https" schemes and the host "medium.com". However, the code doesn't validate the "url" parameter before loading it into the WebView. This means a malicious link could be used to inject and execute JavaScript code.
+
+
+**4. Insecure Activity Handling:**
+
+* **Vulnerability:** The `RoutingActivity` can be used to launch arbitrary activities based on an intent extra, potentially allowing unauthorized access to sensitive functionalities within the application or other apps.
+* **Location:**
+    * `RoutingActivity.java`: Line 18-27
+* **Explanation:** `RoutingActivity` retrieves an intent extra called "router_component" and starts the activity specified by that component. A malicious app could send an intent with a "router_component" extra pointing to a sensitive activity within Vuldroid or another app, potentially bypassing security measures.
+
+
+**5. Server-Side Request Forgery (SSRF):**
+
+* **Vulnerability:** The `YoutubeViewer` activity uses a WebView that can load URLs from external sources. If an attacker can control the URL loaded, they might be able to make the app send requests to internal servers or services that are not accessible from the outside, leading to SSRF attacks.
+* **Location:**
+    * `YoutubeViewer.java`: Line 20-34
+* **Explanation:** The `YoutubeViewer` activity loads URLs into a WebView. If an attacker can trick the user into opening a link that points to an internal server or service, the WebView will make the request on behalf of the app. This could allow the attacker to access sensitive information or perform actions on the internal network.
+
+
+**6. Vulnerable and Outdated Components:**
+
+* **Vulnerability:** The application uses potentially outdated versions of libraries like Firebase Authentication (19.3.2) and Dexter (6.2.2). These libraries might contain known vulnerabilities that could be exploited by attackers.
+* **Location:**
+    * `app/build.gradle`: Line 40-45 (dependencies section)
+* **Explanation:** Using outdated components exposes the application to known vulnerabilities that have been patched in newer versions. Attackers could exploit these vulnerabilities to gain unauthorized access or compromise the app's functionality. It is crucial to keep all dependencies updated to their latest secure versions.
+
+
+**Note:** This analysis focuses on the requested vulnerabilities. There might be other security issues present in the code that are not covered in this report. A comprehensive security assessment would require a more in-depth analysis.
+
+### Vulnerability Scan Result for Future 1:
+## Vuldroid Code Analysis: Vulnerability Findings
+
+**1. Webview XSS via DeepLink**
+
+* **File:** app/src/main/java/com/vuldroid/application/BlogsViewer.java
+* **Lines:** 50-59
+* **Description:** The BlogsViewer activity loads URLs received via deep links without proper sanitization. This allows an attacker to inject malicious JavaScript code into the WebView by crafting a deep link with a URL containing the script. The script can then execute in the context of the WebView, potentially stealing user data or performing other malicious actions.
+
+**2. Steal Files using Fileprovider via Intents**
+
+* **File:** app/src/main/java/com/vuldroid/application/NotesViewer.java
+* **Lines:** 107-122
+* **Description:** The NotesViewer activity creates a PDF file and saves it to the app's internal storage. A FileProvider is used to grant access to this file. However, the `grantUriPermissions` attribute in the AndroidManifest.xml is set to `true`, potentially allowing other apps to access the file if the URI is exposed through an intent. An attacker could exploit this to steal the PDF file containing sensitive user notes.
+
+**3. Steal Password ResetTokens/MagicLoginLinks**
+
+* **File:** app/src/main/java/com/vuldroid/application/ForgetPassword.java
+* **Lines:** 20-28
+* **Description:** The ForgetPassword activity displays the password reset link received via a deep link in a WebView. However, the WebView does not restrict navigation, allowing an attacker to potentially redirect the user to a malicious website that could steal the reset token.
+
+**4. Webview XSS via Exported Activity**
+
+* **File:** app/src/main/AndroidManifest.xml
+* **Lines:** 40-42
+* **Description:** The RoutingActivity is exported and receives an intent containing a component name. This component is then launched without any validation. An attacker could create a malicious app that sends an intent with a component pointing to a malicious activity containing a WebView with injected JavaScript. This could lead to XSS attacks.
+
+**5. Intent Sniffing Between Two Applications**
+
+* **File:** app/src/main/java/com/vuldroid/application/SendMsgtoApp.java
+* **Lines:** 13-20
+* **Description:** The SendMsgtoApp activity sends an implicit intent containing a "secret" value. This intent is not protected with any permissions, making it susceptible to sniffing by other apps. An attacker could create a malicious app that listens for this intent and steals the "secret" value.
+
+**6. Reading User Email via Broadcasts**
+
+* **File:** app/src/main/java/com/vuldroid/application/EmailViewer.java
+* **Lines:** 16-24
+* **Description:** The EmailViewer activity sends a broadcast containing no data. The MyReceiver receives this broadcast and retrieves the user's email address from Firebase Authentication. This broadcast is not protected with any permissions, allowing any app to receive it and access the user's email address.
+
+**7. Code Execution via Malicious App**
+
+* **File:** app/src/main/java/com/vuldroid/application/RootDetection.java
+* **Lines:** 22-35
+* **Description:** The RootDetection activity executes commands received through an intent extra named "command". This functionality is not restricted, allowing a malicious app to send an intent with arbitrary commands to be executed by the vulnerable app. This could potentially lead to code execution vulnerabilities.
+
+**8. Steal Files via Webview using XHR request**
+
+* **File:** app/src/main/java/com/vuldroid/application/YoutubeViewer.java
+* **Lines:** 24-34
+* **Description:** The YoutubeViewer activity uses a WebView with `setAllowFileAccess` and `setAllowUniversalAccessFromFileURLs` enabled. This allows JavaScript code within the WebView to access local files and potentially exfiltrate them using XHR requests. An attacker could inject malicious JavaScript into the WebView (e.g., through a compromised website or a malicious advertisement) to steal sensitive files from the device.
+
+**9. Security Logging and Monitoring Failures**
+
+* **Description:** The code lacks proper security logging and monitoring mechanisms. Sensitive events, such as login attempts, password resets, and file access, are not logged. This makes it difficult to detect and respond to security incidents.
+
+**10. Cryptographic Failures**
+
+* **Description:** The code does not demonstrate any use of cryptography for protecting sensitive data, such as user notes or passwords. This leaves the data vulnerable to unauthorized access if the device is compromised.
+
+**11. Identification and Authentication Failures**
+
+* **Description:** While the app utilizes Firebase Authentication for user login and signup, it lacks robust session management and does not enforce strong password policies. This could potentially lead to account takeover attacks.
+
+**12. Insecure Design**
+
+* **Description:** The app's overall design exhibits several security weaknesses, including the use of implicit intents, unprotected broadcasts, and the execution of arbitrary commands received through intents. These design choices increase the attack surface of the application.
+
+
+**Note:** This analysis focuses on identifying vulnerabilities based on the provided code snippet. There might be other vulnerabilities present in the complete application or its dependencies that are not evident from this analysis.
+
+### Vulnerability Scan Result for Future 3:
+## Vulnerabilities Identified in Vuldroid Application Code:
+
+**1. Code Execution via Malicious App:**
+
+* **Description:** The `RootDetection` activity allows execution of arbitrary commands passed through an intent extra.
+* **Location:**
+    * `RootDetection.java:21-31`
+    * Specifically, `getIntent().getStringExtra("command")` is used to retrieve a command from an intent and then executed using `Runtime.getRuntime().exec()`.
+* **Impact:** A malicious app could send an intent with a malicious command to this activity, leading to arbitrary code execution on the device with the privileges of the vulnerable app.
+
+**2. Steal Files via Webview using XHR request:**
+
+* **Description:** The `YoutubeViewer` and `BlogsViewer` activities have WebViews with improper settings that allow JavaScript to access local files and potentially exfiltrate them via XHR requests.
+* **Location:**
+    * `YoutubeViewer.java:21-24`
+    * `BlogsViewer.java:30-33`, `BlogsViewer.java:40-44`
+    *  `setAllowFileAccess(true)`, `setAllowFileAccessFromFileURLs(true)`, and `setAllowUniversalAccessFromFileURLs(true)` are enabled, allowing JavaScript to access local files.
+* **Impact:** A malicious website loaded in these WebViews could use JavaScript to read sensitive files from the device's storage and send them to a remote server.
+
+**3. Steal Files using Fileprovider via Intents:**
+
+* **Description:** The `FileProvider` is configured to grant access to the entire internal storage, making files accessible to other apps.
+* **Location:**
+    * `AndroidManifest.xml:95-101`
+    * Specifically, `<root-path name="root" path=""/>` in `provider_paths.xml` grants access to the root directory.
+* **Impact:** A malicious app could craft an intent targeting this `FileProvider` to access and steal any file within the app's internal storage.
+
+**4. Steal Password Reset Tokens/Magic Login Links:**
+
+* **Description:** The `ForgetPassword` activity displays the password reset link in a WebView without proper validation or restrictions, potentially allowing a malicious app to intercept it.
+* **Location:**
+    * `ForgetPassword.java:20-25`
+    * The entire URL received from the intent is loaded into the WebView without any checks.
+* **Impact:** If a user clicks a password reset link from a malicious email or SMS, the link could be intercepted by a malicious app that has registered for the same intent filter, allowing the attacker to reset the user's password.
+
+**5. Webview XSS via Exported Activity:**
+
+* **Description:** The `RoutingActivity` is exported and can be launched with an arbitrary intent, which it then forwards to another component. This can be used to launch a WebView with a malicious URL, potentially leading to XSS attacks.
+* **Location:**
+    * `AndroidManifest.xml:62`
+    * `RoutingActivity.java:18-26`
+* **Impact:** A malicious app could send an intent to `RoutingActivity` containing a malicious URL in the `router_component` extra. If this URL targets a WebView component within the app, it could lead to an XSS attack, allowing the attacker to steal user data or execute JavaScript in the context of the vulnerable app.
+
+**6. Webview XSS via DeepLink:**
+
+* **Description:** The `BlogsViewer` activity is configured to handle deep links from `medium.com`, but it doesn't properly sanitize the URL before loading it into the WebView.
+* **Location:**
+    * `AndroidManifest.xml:73-82`
+    * `BlogsViewer.java:39`
+* **Impact:** An attacker could craft a malicious URL on `medium.com` that contains JavaScript code. When a user clicks this link, the `BlogsViewer` activity will load the URL into its WebView, potentially leading to an XSS attack.
+
+**7. Intent Sniffing Between Two Applications:**
+
+* **Description:** The `SendMsgtoApp` activity sends an implicit intent containing sensitive data with the action `com.app.innocent.recievemsg`.
+* **Location:**
+    * `SendMsgtoApp.java:12-17`
+* **Impact:** Any other app registered for the same intent filter can intercept this intent and steal the sensitive data.
+
+**8. Reading User Email via Broadcasts:**
+
+* **Description:** The `EmailViewer` activity sends a broadcast with the action `com.example.Broadcast`, and the `MyReceiver` receives this broadcast and displays the user's email address in a Toast message.
+* **Location:**
+    * `EmailViewer.java:16-22`
+    * `MyReceiver.java:16-21`
+* **Impact:** Any app can register a receiver for the `com.example.Broadcast` action and steal the user's email address when the `EmailViewer` activity is launched.
+
+**9. Insecure Input Validation:**
+
+* **Description:** The `NotesViewer` activity saves user input to a file without proper validation or sanitization.
+* **Location:**
+    * `NotesViewer.java:42-57`
+* **Impact:** If the user input contains malicious code or exploits, it could be executed when the file is loaded or processed by other parts of the application.
+
+**10. Security Misconfiguration:**
+
+* **Description:** The application uses `android:usesCleartextTraffic="true"` in the `AndroidManifest.xml`, allowing unencrypted network communication.
+* **Location:**
+    * `AndroidManifest.xml:55`
+* **Impact:** Network traffic can be intercepted and read by attackers, potentially exposing sensitive data.
+
+**11. Broken Access Control:**
+
+* **Description:** The `MyReceiver` class accesses the user's email address without any access control checks.
+* **Location:**
+    * `MyReceiver.java:17-19`
+* **Impact:** Any app that can send the `com.example.Broadcast` intent can trigger the `MyReceiver` and potentially access the user's email address.
+
+**12. Software and Data Integrity Failures:**
+
+* **Description:** The `NotesViewer` activity creates a PDF file and saves it to the app's internal storage without proper integrity checks or protections.
+* **Location:**
+    * `NotesViewer.java:85-116`
+* **Impact:** An attacker could potentially modify the PDF file or replace it with a malicious file, compromising the integrity of the data.
+
+
+This analysis highlights the potential security risks present in the Vuldroid application code. It is crucial to address these vulnerabilities to ensure the security and privacy of user data. Remember that this is not an exhaustive list, and other vulnerabilities might exist. It is always recommended to conduct thorough security testing and code review to identify and mitigate all potential risks. 
+
+

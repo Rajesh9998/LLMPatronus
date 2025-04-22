@@ -1,0 +1,10 @@
+pinecone
+google-generativeai
+together
+PyPDF2
+fpdf
+duckduckgo-search
+openai
+python-dotenv
+chardet
+markdown

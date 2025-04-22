@@ -1,0 +1,98 @@
+file_structure = [
+    [
+        'C:\Users\pandu\Downloads\Vuldroid-master\LICENSE.md',
+        'C:\Users\pandu\Downloads\Vuldroid-master\README.md',
+    ],
+    [
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\build.gradle',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\gradle.properties',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\gradlew',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\gradlew.bat',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\local.properties',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\settings.gradle',
+    ],
+    [
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\.gitignore',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\build.gradle',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\google-services.json',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\proguard-rules.pro',
+    ],
+    [
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\androidTest\java\com\vuldroid\application\ExampleInstrumentedTest.java',
+    ],
+    [
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\AndroidManifest.xml',
+    ],
+    [
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\java\com\vuldroid\application\BlogsViewer.java',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\java\com\vuldroid\application\Dashboard.java',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\java\com\vuldroid\application\EmailViewer.java',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\java\com\vuldroid\application\ForgetPassword.java',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\java\com\vuldroid\application\Login.java',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\java\com\vuldroid\application\MyReceiver.java',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\java\com\vuldroid\application\NotesViewer.java',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\java\com\vuldroid\application\RequestPassword.java',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\java\com\vuldroid\application\RootDetection.java',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\java\com\vuldroid\application\RoutingActivity.java',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\java\com\vuldroid\application\SendMsgtoApp.java',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\java\com\vuldroid\application\Signup.java',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\java\com\vuldroid\application\SplashScreen.java',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\java\com\vuldroid\application\UserLogin.java',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\java\com\vuldroid\application\YoutubeViewer.java',
+    ],
+    [
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\res\anim\bottom_anim.xml',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\res\anim\side_anim.xml',
+    ],
+    [
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\res\drawable\ic_launcher_background.xml',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\res\drawable\round_bk3.jpg',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\res\drawable\whitecircle.xml',
+    ],
+    [
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\res\drawable-v24\ic_launcher_foreground.xml',
+    ],
+    [
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\res\font\baloo.xml',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\res\font\muli_bold.xml',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\res\font\muli_extralight.xml',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\res\font\muli_light_italic.xml',
+    ],
+    [
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\res\layout\activity_arbifile.xml',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\res\layout\activity_blogsviewer.xml',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\res\layout\activity_dashboard.xml',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\res\layout\activity_email_viewer.xml',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\res\layout\activity_forgetpassword.xml',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\res\layout\activity_login.xml',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\res\layout\activity_notesviewer.xml',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\res\layout\activity_requestpassword.xml',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\res\layout\activity_root_detection.xml',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\res\layout\activity_send_msgto_app.xml',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\res\layout\activity_signup.xml',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\res\layout\activity_userlogin.xml',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\res\layout\activity_youtubeviewer.xml',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\res\layout\splash_screen.xml',
+    ],
+    [
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\res\mipmap-anydpi-v26\ic_launcher.xml',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\res\mipmap-anydpi-v26\ic_launcher_round.xml',
+    ],
+    [
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\res\values\colors.xml',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\res\values\font_certs.xml',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\res\values\preloaded_fonts.xml',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\res\values\strings.xml',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\res\values\styles.xml',
+    ],
+    [
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\main\res\xml\provider_paths.xml',
+    ],
+    [
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\app\src\test\java\com\vuldroid\application\ExampleUnitTest.java',
+    ],
+    [
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\gradle\wrapper\gradle-wrapper.jar',
+        'C:\Users\pandu\Downloads\Vuldroid-master\VuldroidApp Code\gradle\wrapper\gradle-wrapper.properties',
+    ],
+]

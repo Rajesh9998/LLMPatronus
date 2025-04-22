@@ -461,7 +461,7 @@ google_services = '''
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBIc8iRsAPKZR_ZDQoV7HiuZoDv5K1by_Y"
+          "current_key": ""
         }
       ],
       "services": {
